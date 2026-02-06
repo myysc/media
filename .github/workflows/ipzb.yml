@@ -28,11 +28,6 @@ jobs:
       - name: Install ffmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
 
-      - name: 删除接口目录
-        run: |
-          rm -rf ${{ github.workspace }}/tv
-          echo "目录已删除"
-
       - name: 创建必要目录
         run: |
           mkdir -p ${{ github.workspace }}/ip
