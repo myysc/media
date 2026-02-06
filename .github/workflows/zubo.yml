@@ -56,7 +56,7 @@ jobs:
             # 确保目标目录存在
             mkdir -p ${{ github.workspace }}/rtp
             # 复制所有 txt 文件
-            cp /tmp/private-repo/rtp/*.txt ${{ github.workspace }}/rtpudp/ 2>/dev/null || echo "没有找到 txt 文件或目录为空"
+            cp /tmp/private-repo/rtpudp/*.txt ${{ github.workspace }}/rtp/ 2>/dev/null || echo "没有找到 txt 文件或目录为空"
             echo "rtp 文件已复制"
           else
             echo "警告: /tmp/private-repo/rtpudp 目录不存在"
