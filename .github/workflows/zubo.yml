@@ -30,8 +30,8 @@ jobs:
 
       - name: 创建必要目录
         run: |
-          mkdir -p ${{ github.workspace }}/ip
-          mkdir -p ${{ github.workspace }}/rtp
+          mkdir -p ${{ github.workspace }}/fwip
+          mkdir -p ${{ github.workspace }}/rtpudp
           mkdir -p ${{ github.workspace }}/py
           mkdir -p ${{ github.workspace }}/tv
           echo "必要目录已创建"
@@ -54,9 +54,9 @@ jobs:
           if [ -d "/tmp/private-repo/rtpudp" ]; then
             echo "复制 rtpudp 文件夹中的 txt 文件..."
             # 确保目标目录存在
-            mkdir -p ${{ github.workspace }}/rtp
+            mkdir -p ${{ github.workspace }}/rtpudp
             # 复制所有 txt 文件
-            cp /tmp/private-repo/rtpudp/*.txt ${{ github.workspace }}/rtp/ 2>/dev/null || echo "没有找到 txt 文件或目录为空"
+            cp /tmp/private-repo/rtpudp/*.txt ${{ github.workspace }}/rtpudp/ 2>/dev/null || echo "没有找到 txt 文件或目录为空"
             echo "rtp 文件已复制"
           else
             echo "警告: /tmp/private-repo/rtpudp 目录不存在"
@@ -66,10 +66,10 @@ jobs:
           if [ -d "/tmp/private-repo/fwip" ]; then
             echo "复制 fwip 文件夹中的 txt 文件..."
             # 确保目标目录存在
-            mkdir -p ${{ github.workspace }}/rtp
+            mkdir -p ${{ github.workspace }}/fwip
             # 复制所有 txt 文件
-            cp /tmp/private-repo/fwip/*.txt ${{ github.workspace }}/ip/ 2>/dev/null || echo "没有找到 txt 文件或目录为空"
-            echo "rtp 文件已复制"
+            cp /tmp/private-repo/fwip/*.txt ${{ github.workspace }}/fwip/ 2>/dev/null || echo "没有找到 txt 文件或目录为空"
+            echo "fwip 文件已复制"
           else
             echo "警告: /tmp/private-repo/fwip 目录不存在"
           fi
