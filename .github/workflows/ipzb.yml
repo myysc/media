@@ -41,6 +41,36 @@ jobs:
           mkdir -p ${{ github.workspace }}/tv
           echo "必要目录已创建"
 
+      - name: 从私库复制文件
+        run: |
+          # 克隆私库到临时目录
+          git clone https://${{ secrets.REPOIPTV }}@github.com/myysc/zbjdtv.git /tmp/private-repo
+          
+          # 复制 fofa_zubo.py 文件
+          if [ -f "/tmp/private-repo/py/fofa_zubo.py" ]; then
+            echo "复制 fofa_zubo.py 文件..."
+            cp /tmp/private-repo/py/fofa_zubo.py ${{ github.workspace }}/py/
+            echo "fofa_zubo.py 已复制"
+          else
+            echo "警告: /tmp/private-repo/py/fofa_zubo.py 不存在"
+          fi
+          
+          # 复制 rtp 文件夹中的所有 txt 文件
+          if [ -d "/tmp/private-repo/rtp" ]; then
+            echo "复制 rtp 文件夹中的 txt 文件..."
+            # 确保目标目录存在
+            mkdir -p ${{ github.workspace }}/rtp
+            # 复制所有 txt 文件
+            cp /tmp/private-repo/rtp/*.txt ${{ github.workspace }}/rtp/ 2>/dev/null || echo "没有找到 txt 文件或目录为空"
+            echo "rtp 文件已复制"
+          else
+            echo "警告: /tmp/private-repo/rtp 目录不存在"
+          fi
+          
+          # 清理临时目录
+          rm -rf /tmp/private-repo
+          echo "私库文件复制完成"
+
       - name: Run FOFA 组播
         run: python py/fofa_zubo.py
 
@@ -51,5 +81,7 @@ jobs:
           git add 计数.txt
           git add ip/*.txt || true
           git add tv/zbtv.txt || true
-          git commit -m "自动更新：计数、IP文件、IPTV.txt" || echo "⚠️ 无需提交"
+          git add py/fofa_zubo.py || true
+          git add rtp/*.txt || true
+          git commit -m "自动更新：计数、IP文件、IPTV.txt、私库文件" || echo "⚠️ 无需提交"
           git push origin main || echo "⚠️ 推送失败"
