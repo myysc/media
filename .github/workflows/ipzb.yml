@@ -124,32 +124,5 @@ jobs:
           git config --global user.email "github-actions@users.noreply.github.com"
           git add 计数.txt
           git add ip/*.txt || true
-          git add tv/zbtv.txt || true
           git commit -m "自动更新：计数、IP文件" || echo "⚠️ 无需提交"
           git push origin main || echo "⚠️ 推送失败"
-
-      - name: 清理本地 tv/zbtv.txt 文件
-        run: |
-          echo "开始清理本地 tv/zbtv.txt 文件..."
-          
-          if [ -f "${{ github.workspace }}/tv/zbtv.txt" ]; then
-            echo "删除 tv/zbtv.txt 文件..."
-            rm -f "${{ github.workspace }}/tv/zbtv.txt"
-            
-            if [ ! -f "${{ github.workspace }}/tv/zbtv.txt" ]; then
-              echo "✅ tv/zbtv.txt 文件已成功删除"
-            else
-              echo "⚠️ tv/zbtv.txt 文件删除失败，文件仍然存在"
-            fi
-          else
-            echo "ℹ️ tv/zbtv.txt 文件不存在，无需删除"
-          fi
-          
-          # 检查 tv 目录是否为空，如果为空则删除
-          if [ -d "${{ github.workspace }}/tv" ] && [ -z "$(ls -A ${{ github.workspace }}/tv 2>/dev/null)" ]; then
-            echo "tv 目录为空，删除 tv 目录..."
-            rmdir "${{ github.workspace }}/tv"
-            echo "✅ tv 目录已删除"
-          fi
-          
-          echo "清理完成"
