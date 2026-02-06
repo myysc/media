@@ -81,7 +81,5 @@ jobs:
           git add 计数.txt
           git add ip/*.txt || true
           git add tv/zbtv.txt || true
-          git add py/fofa_zubo.py || true
-          git add rtp/*.txt || true
           git commit -m "自动更新：计数、IP文件、IPTV.txt、私库文件" || echo "⚠️ 无需提交"
           git push origin main || echo "⚠️ 推送失败"
