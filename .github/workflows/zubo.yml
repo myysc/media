@@ -28,6 +28,14 @@ jobs:
       - name: Install ffmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
 
+      - name: 清理旧数据 🗑️
+        run: |
+          # 删除fwip目录中的txt文件
+          if [ -d "${{ github.workspace }}/fwip" ]; then
+            find ${{ github.workspace }}/fwip -name "*.txt" -type f -delete
+            echo "已清理fwip目录中的txt文件"
+          fi
+
       - name: 创建必要目录
         run: |
           mkdir -p ${{ github.workspace }}/fwip
