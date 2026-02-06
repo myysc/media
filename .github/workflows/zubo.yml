@@ -51,8 +51,8 @@ jobs:
           fi
           
           # 复制 rtp 文件夹中的所有 txt 文件
-          if [ -d "/tmp/private-repo/rtp" ]; then
-            echo "复制 rtp 文件夹中的 txt 文件..."
+          if [ -d "/tmp/private-repo/rtpudp" ]; then
+            echo "复制 rtpudp 文件夹中的 txt 文件..."
             # 确保目标目录存在
             mkdir -p ${{ github.workspace }}/rtp
             # 复制所有 txt 文件
@@ -62,6 +62,18 @@ jobs:
             echo "警告: /tmp/private-repo/rtpudp 目录不存在"
           fi
           
+          # 复制 fwip 文件夹中的所有 txt 文件
+          if [ -d "/tmp/private-repo/fwip" ]; then
+            echo "复制 fwip 文件夹中的 txt 文件..."
+            # 确保目标目录存在
+            mkdir -p ${{ github.workspace }}/rtp
+            # 复制所有 txt 文件
+            cp /tmp/private-repo/fwip/*.txt ${{ github.workspace }}/ip/ 2>/dev/null || echo "没有找到 txt 文件或目录为空"
+            echo "rtp 文件已复制"
+          else
+            echo "警告: /tmp/private-repo/fwip 目录不存在"
+          fi
+
           # 清理临时目录
           rm -rf /tmp/private-repo
           echo "私库文件复制完成"
