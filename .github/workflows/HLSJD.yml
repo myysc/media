@@ -49,7 +49,7 @@ jobs:
           
           # 复制 hls_urls.txt 文件
           if [ -f "/tmp/private_repo/jdip/hls_urls.txt" ]; then
-            cp /tmp/private_repo/jdip/hls_urls.txt ${{ github.workspace }}/ip_urls.txt
+            cp /tmp/private_repo/jdip/hls_urls.txt ${{ github.workspace }}/hls_urls.txt
             echo "已复制 hls_urls.txt"
           else
             echo "警告: 库中未找到 hls_urls.txt 文件"
