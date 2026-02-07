@@ -48,8 +48,8 @@ jobs:
           fi
           
           # 复制 ip_urls.txt 文件
-          if [ -f "/tmp/private_repo/ip_urls.txt" ]; then
-            cp /tmp/private_repo/ip_urls.txt ${{ github.workspace }}/ip_urls.txt
+          if [ -f "/tmp/private_repo/jdip/ip_urls.txt" ]; then
+            cp /tmp/private_repo/jdip/ip_urls.txt ${{ github.workspace }}/ip_urls.txt
             echo "已复制 ip_urls.txt"
           else
             echo "警告: 库中未找到 ip_urls.txt 文件"
