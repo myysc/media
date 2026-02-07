@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-itvlist:
+  run-itvhls:
     runs-on: ubuntu-latest
 
     steps:
@@ -79,17 +79,17 @@ jobs:
           # 创建 tv 目录（如果不存在）
           mkdir -p tv
           
-          # 复制生成的 itvlist.txt 到库的 tv 文件夹并重命名为 jiudian.txt
-          if [ -f "${{ github.workspace }}/itvlist.txt" ]; then
-            cp ${{ github.workspace }}/itvlist.txt /tmp/private_repo/tv/jdhls.txt
-            echo "已复制 itvlist.txt 到库 tv/jdhls.txt"
+          # 复制生成的 itvhls.txt 到库的 tv 文件夹并重命名为 jiudian.txt
+          if [ -f "${{ github.workspace }}/itvhls.txt" ]; then
+            cp ${{ github.workspace }}/itvhls.txt /tmp/private_repo/tv/jdhls.txt
+            echo "已复制 itvhls.txt 到库 tv/jdhls.txt"
             
             # 提交并推送更改到库
             git add tv/jiudian.txt
             git commit -m "自动更新：jiudian.txt $(date +'%Y-%m-%d %H:%M:%S')" || echo "没有更改需要提交"
             git push origin main || echo "推送失败或无需推送"
           else
-            echo "警告: 未找到生成的文件 itvlist.txt"
+            echo "警告: 未找到生成的文件 itvhls.txt"
           fi
           
           echo "=== 库文件上传完成 ==="
@@ -98,6 +98,6 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add itvlist.txt
-          git commit -m "自定更新： itvlist.txt" || echo "No changes"
+          git add itvhls.txt
+          git commit -m "自定更新： itvhls.txt" || echo "No changes"
           git push --force
