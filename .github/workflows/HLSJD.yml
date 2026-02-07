@@ -81,8 +81,8 @@ jobs:
           
           # 复制生成的 itvlist.txt 到库的 tv 文件夹并重命名为 jiudian.txt
           if [ -f "${{ github.workspace }}/itvlist.txt" ]; then
-            cp ${{ github.workspace }}/itvlist.txt /tmp/private_repo/tv/jiudian.txt
-            echo "已复制 itvlist.txt 到库 tv/jiudian.txt"
+            cp ${{ github.workspace }}/itvlist.txt /tmp/private_repo/tv/jdhls.txt
+            echo "已复制 itvlist.txt 到库 tv/jdhls.txt"
             
             # 提交并推送更改到库
             git add tv/jiudian.txt
@@ -98,6 +98,6 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add ip_urls.txt
-          git commit -m "自定更新： ip_urls.txt" || echo "No changes"
+          git add itvlist.txt
+          git commit -m "自定更新： itvlist.txt" || echo "No changes"
           git push --force
