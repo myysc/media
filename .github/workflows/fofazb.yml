@@ -118,11 +118,25 @@ jobs:
           rm -rf /tmp/push-repo
           echo "推送任务完成"
 
-      - name: Commit and push changes
+      - name: 推送结果到公开库
         run: |
+          echo "开始推送文件到公开库..."
+          
+          # 配置 git
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@users.noreply.github.com"
-          git add 计数.txt
-          git add ip/*.txt || true
-          git commit -m "自动更新：计数、IP文件" || echo "⚠️ 无需提交"
-          git push origin main || echo "⚠️ 推送失败"
+          
+          # 添加所有更改
+          git add .
+          
+          # 检查是否有更改
+          if git diff --cached --quiet; then
+            echo "没有变更需要提交"
+          else
+            # 提交变更
+            git commit -m "自动更新：FOFA组播数据 [$(date +'%Y-%m-%d %H:%M:%S')]"
+            
+            # 推送到当前仓库
+            git push origin main
+            echo "✅ 文件已推送到当前仓库"
+          fi
